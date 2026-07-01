@@ -1,5 +1,5 @@
-const { Hono } = require('hono');
-const { handle } = require('@hono/node-server/vercel');
+import { Hono } from 'hono'
+import { handle } from '@hono/node-server/vercel'
 
 const app = new Hono()
 
@@ -37,4 +37,8 @@ app.all('/cors', async (c) => {
   } catch (error) { return c.text(`Proxy Error: ${error.message}`, 500); }
 });
 
-module.exports = handle(app);
+export const GET = handle(app)
+export const POST = handle(app)
+export const PUT = handle(app)
+export const DELETE = handle(app)
+export const OPTIONS = handle(app)
