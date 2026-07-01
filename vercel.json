@@ -1,13 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    {
-      "source": "/v2/(.*)",
-      "destination": "/api/index.ts"
-    },
-    {
-      "source": "/",
-      "destination": "/api/index.ts"
-    }
+    { "source": "/v2/(.*)", "destination": "/api/index.ts" },
+    { "source": "/", "destination": "/api/index.ts" }
   ]
 }
