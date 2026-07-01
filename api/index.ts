@@ -24,8 +24,6 @@ app.all('/v2/cors', async (c) => {
     resHeaders.delete('content-encoding')
     resHeaders.delete('content-length')
     resHeaders.delete('transfer-encoding')
-
-    const resHeaders = new Headers(response.headers)
     resHeaders.set('Access-Control-Allow-Origin', '*')
     resHeaders.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS')
     resHeaders.set('Access-Control-Allow-Headers', '*')
