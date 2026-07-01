@@ -9,6 +9,7 @@ app.get('/v2', (c) => { return c.text('Hono CORS Proxy Running! Use: /v2/cors?u=
 app.all('/v2/cors', async (c) => {
   const targetUrl = c.req.query('u')
   if (!targetUrl) { return c.text('Missing "u" query parameter', 400) }
+  
   try {
     const headers = new Headers(c.req.raw.headers)
     headers.delete('host')
