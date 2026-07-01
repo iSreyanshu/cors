@@ -1,7 +1,7 @@
 const { Hono } = require('hono');
 const { handle } = require('@hono/node-server/vercel');
 
-const app = new Hono().basePath('/v2');
+const app = new Hono()
 
 app.get('/', (c) => {
   return c.text('Hono CORS Proxy Running! Use: ../v2/cors?u=');
