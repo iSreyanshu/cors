@@ -1,7 +1,11 @@
 {
   "name": "honocors-proxy",
   "version": "0.1.0",
+  "description": "A CORS proxy powered by Hono",
+  "type": "module",
   "private": true,
+  "author": "Sreyanshu",
+  "license": "MIT",
   "dependencies": {
     "hono": "^4.4.0"
   },
