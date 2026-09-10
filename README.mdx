@@ -1,6 +1,6 @@
-# Hono CORS Proxy
+# CORS Proxy
 
-A lightweight CORS proxy built with Hono and designed for Vercel Edge runtime. It lets browser-based apps request third-party APIs without running into browser cross-origin restrictions.
+A lightweight CORS proxy built with Hono and designed for Vercel edge runtime. It lets browser-based apps request third-party APIs without running into browser cross-origin restrictions.
 
 ## Why this project exists
 
@@ -20,35 +20,21 @@ Many public APIs and static resources do not send the CORS headers required by b
 - Handles missing or invalid target URLs cleanly
 - Ready to deploy on Vercel
 
-## Project structure
-
-- `api/index.ts` — the Hono app and proxy logic
-- `vercel.json` — rewrite rules for Vercel
-- `package.json` — project metadata and dependencies
-- `tsconfig.json` — TypeScript configuration
-
-## Endpoint usage
-
-### Root routes
-
-- `GET /` — health check message
-- `GET /v2` — health check message
-
 ### Proxy route
 
-- `ANY /v2/cors?u=<target-url>` — proxy the request to the provided URL
+- `ANY /v2/cors?u={target}` - proxy the request to the provided URL
 
-Example:
+example:
 
 ```bash
-https://your-project.vercel.app/v2/cors?u=https://api.example.com/data
+https://anycors.vercel.app/v2/cors?u=https://api.xyz.com/data
 ```
 
-Example in JavaScript:
+example in JavaScript:
 
 ```js
 const res = await fetch(
-  'https://your-project.vercel.app/v2/cors?u=' + encodeURIComponent('https://api.example.com/data')
+  'https://anycors.vercel.app/v2/cors?u=' + encodeURIComponent('https://api.xyz.com/data')
 )
 const data = await res.json()
 console.log(data)
@@ -58,47 +44,12 @@ console.log(data)
 
 The proxy forwards the incoming HTTP method to the target URL, including request bodies for methods that allow them. If the incoming request is `OPTIONS`, the server responds with a 204 status and CORS headers.
 
-## Example request flow
+## Request flow
 
 ```text
-Browser -> /v2/cors?u=https://api.example.com/items
+Browser -> /v2/cors?u=https://api.xyz.com/items
         -> proxy fetches the target URL
         -> returns proxied response with CORS headers
-```
-
-## Local development
-
-1. Install dependencies:
-
-```bash
-npm install
-```
-
-2. Validate TypeScript compilation:
-
-```bash
-npx tsc --noEmit
-```
-
-3. Run the app locally with Vercel:
-
-```bash
-npx vercel dev
-```
-
-Then open the local Vercel URL and call the proxy endpoint with a `u` parameter.
-
-## Deployment
-
-This project is configured for Vercel.
-
-1. Push the repository to GitHub.
-2. Import it into Vercel.
-3. Deploy the project.
-4. Use the generated domain with the proxy route:
-
-```bash
-https://<your-vercel-domain>.vercel.app/v2/cors?u=https://example.com
 ```
 
 ## Notes and behavior
