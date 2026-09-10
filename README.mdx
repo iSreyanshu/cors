@@ -1,1 +1,113 @@
-# cors
+# Hono CORS Proxy
+
+A lightweight CORS proxy built with Hono and designed for Vercel Edge runtime. It lets browser-based apps request third-party APIs without running into browser cross-origin restrictions.
+
+## Why this project exists
+
+Many public APIs and static resources do not send the CORS headers required by browsers. This project acts as a simple pass-through proxy:
+
+- receives a request from the browser
+- forwards it to a target URL using the `u` query parameter
+- adds permissive CORS headers to the response
+- returns the target response body and status code
+
+## Features
+
+- Proxy any URL through a single endpoint
+- Supports `GET`, `POST`, `PUT`, `DELETE`, and `OPTIONS`
+- Adds `Access-Control-Allow-Origin: *`
+- Preserves target response status and payload
+- Handles missing or invalid target URLs cleanly
+- Ready to deploy on Vercel
+
+## Project structure
+
+- `api/index.ts` — the Hono app and proxy logic
+- `vercel.json` — rewrite rules for Vercel
+- `package.json` — project metadata and dependencies
+- `tsconfig.json` — TypeScript configuration
+
+## Endpoint usage
+
+### Root routes
+
+- `GET /` — health check message
+- `GET /v2` — health check message
+
+### Proxy route
+
+- `ANY /v2/cors?u=<target-url>` — proxy the request to the provided URL
+
+Example:
+
+```bash
+https://your-project.vercel.app/v2/cors?u=https://api.example.com/data
+```
+
+Example in JavaScript:
+
+```js
+const res = await fetch(
+  'https://your-project.vercel.app/v2/cors?u=' + encodeURIComponent('https://api.example.com/data')
+)
+const data = await res.json()
+console.log(data)
+```
+
+### Request method handling
+
+The proxy forwards the incoming HTTP method to the target URL, including request bodies for methods that allow them. If the incoming request is `OPTIONS`, the server responds with a 204 status and CORS headers.
+
+## Example request flow
+
+```text
+Browser -> /v2/cors?u=https://api.example.com/items
+        -> proxy fetches the target URL
+        -> returns proxied response with CORS headers
+```
+
+## Local development
+
+1. Install dependencies:
+
+```bash
+npm install
+```
+
+2. Validate TypeScript compilation:
+
+```bash
+npx tsc --noEmit
+```
+
+3. Run the app locally with Vercel:
+
+```bash
+npx vercel dev
+```
+
+Then open the local Vercel URL and call the proxy endpoint with a `u` parameter.
+
+## Deployment
+
+This project is configured for Vercel.
+
+1. Push the repository to GitHub.
+2. Import it into Vercel.
+3. Deploy the project.
+4. Use the generated domain with the proxy route:
+
+```bash
+https://<your-vercel-domain>.vercel.app/v2/cors?u=https://example.com
+```
+
+## Notes and behavior
+
+- The `u` query parameter is required.
+- Requests without `u` return `400 Missing "u" query parameter`.
+- Proxy errors return a `500` response with the underlying fetch error message.
+- The proxy strips `host` and some transfer-related headers before forwarding.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
