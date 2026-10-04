@@ -1,6 +1,6 @@
 # cors proxy
 
-**A lightweight CORS proxy built with Hono and designed for Vercel runtime. It lets browser-based apps request third-party APIs without running into browser cross-origin restrictions.
+**A lightweight CORS proxy built with Hono and designed for Vercel runtime. It lets browser-based apps request third-party APIs without running into browser cross-origin restrictions.**
 
 ## Why this project exists
 
