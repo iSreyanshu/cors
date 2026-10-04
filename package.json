@@ -1,14 +1,12 @@
 {
-  "name": "honocors-proxy",
+  "name": "cors-proxy",
   "version": "0.1.0",
-  "description": "A CORS proxy powered by Hono",
+  "description": "A cors proxy by Hono",
   "type": "module",
   "private": true,
   "author": "Sreyanshu",
   "license": "MIT",
-  "dependencies": {
-    "hono": "^4.4.0"
-  },
+  "dependencies": { "hono": "^4.4.0" },
   "devDependencies": {
     "@types/node": "^26.1.0",
     "typescript": "^7.0.2"
