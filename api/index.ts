@@ -4,8 +4,8 @@ import { handle } from 'hono/vercel'
 export const runtime = 'edge'
 const app = new Hono()
 
-app.get('/', (c) => { return c.text('Hono CORS Proxy Running! Use: /v2/cors?u=YOUR_URL') })
-app.get('/v2', (c) => { return c.text('Hono CORS Proxy Running! Use: /v2/cors?u=YOUR_URL') })
+app.get('/', (c) => { return c.text('running; use: /v2/cors?u=YOUR_URL') })
+app.get('/v2', (c) => { return c.text('running; use: /v2/cors?u=YOUR_URL') })
 
 app.all('/v2/cors', async (c) => {
   const targetUrl = c.req.query('u')
@@ -42,7 +42,7 @@ app.all('/v2/cors', async (c) => {
 })
 
 export const GET = handle(app)
-export const POST = handle(app)
 export const PUT = handle(app)
+export const POST = handle(app)
 export const DELETE = handle(app)
 export const OPTIONS = handle(app)
