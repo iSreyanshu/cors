@@ -55,5 +55,3 @@ Browser -> /v2/cors?u=https://api.xyz.com/data
 - **Requests without `u` return `400 Missing "u" query parameter`.**
 - **Proxy errors return a `500` response with the underlying fetch error message.**
 - **The proxy strips `host` and some transfer-related headers before forwarding.**
-
-*by [Sreyanshu](https://github.com/iSreyanshu)*
